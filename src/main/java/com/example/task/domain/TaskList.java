@@ -1,10 +1,8 @@
 package com.example.task.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonView;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -12,7 +10,6 @@ import java.util.Date;
 public class TaskList {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @JsonView(Views.IdName.class)
     private Long id;
     private String task;
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")

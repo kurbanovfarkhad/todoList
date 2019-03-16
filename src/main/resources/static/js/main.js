@@ -102,9 +102,6 @@ Vue.component('tasks-list', {
     '<h3>List</h3>' +
     '<task-row v-for="task in tasks" :task="task" :key="task.id" :editMethod="editMethod" :tasks="tasks"/>' +
     '</div>',
-    created: function () {
-        taskApi.get().then(result => result.json().then(data => data.forEach(task => this.tasks.push(task))));
-    },
     methods: {
         editMethod: function (task) {
             this.task = task;
@@ -115,8 +112,19 @@ Vue.component('tasks-list', {
 
 var app = new Vue({
     el: '#app',
-    template: '<tasks-list :tasks="tasks"/>',
+    template: '<div>' +
+    '<div v-if="!profile">login <a href="/login">Push</a></div>' +
+    '<div  v-else>' +
+    '<div>{{profile.name}}&nbsp;<a href="/logout">logout</a></div>' +
+    '<tasks-list :tasks="tasks"/>' +
+    '</div>' +
+
+    '</div>',
     data: {
-        tasks: []
+        tasks: frontendData.tasks,
+        profile: frontendData.profile
+    },
+    created: function () {
+        // taskApi.get().then(result => result.json().then(data => data.forEach(task => this.tasks.push(task))));
     }
 });

@@ -1,12 +1,17 @@
 package com.example.task.controllers;
 
 import com.example.task.domain.TaskList;
+import com.example.task.domain.User;
 import com.example.task.repo.TaskRepository;
 import org.apache.log4j.Logger;
 import org.springframework.beans.BeanUtils;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/taskList")
@@ -18,9 +23,11 @@ public class MainController {
     }
 
     @GetMapping
-    public List<TaskList> list(){
-        logger.info("get all task list");
+    public List<TaskList> list(@AuthenticationPrincipal User user, Model model){
+
+
         try{
+            logger.info("get all task list");
             return taskRepository.findAll();
         }catch(Exception e){
             logger.info("Error "+e.toString());
