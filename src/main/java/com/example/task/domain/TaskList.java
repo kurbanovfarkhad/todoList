@@ -19,8 +19,7 @@ public class TaskList {
     @Column(name = "taskDate")
     private Date date;
 
-
-    @Column(name = "checker",columnDefinition = "default false")
+    @Column(name="checker", columnDefinition = "bool default 0")
     private boolean checker;
 
     public Long getId() {
