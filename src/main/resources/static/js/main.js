@@ -67,8 +67,8 @@ Vue.component('task-row', {
     props: ['task', 'editMethod', 'tasks'],
     template: '<div>' +
     '<b>{{task.id}}</b>{{task.task}}{{task.date}}' +
-    '<p v-if="task.checker===true">Everything okay</p>' +
-    '<p v-else="task.checker===true">all bad</p>' +
+    '<p v-if="task.checker===true">Done</p>' +
+    '<p v-else="task.checker===true">waiting</p>' +
     '<span>' +
     '<input type="button" value="edit" @click="edit">' +
     '<input type="button" value="delete" @click="del">' +
@@ -109,13 +109,15 @@ Vue.component('tasks-list', {
     }
 });
 
-
 var app = new Vue({
     el: '#app',
     template: '<div>' +
-    '<div v-if="!profile">login <a href="/login">Push</a></div>' +
+    '<div v-if="!profile">' +
+    '' +
+    '<div>login <a href="/login">by Google</a></div>' +
+    '</div>' +
     '<div  v-else>' +
-    '<div>{{profile.name}}&nbsp;<a href="/logout">logout</a></div>' +
+    '<div>{{profile.name}}<a href="/logout">logout</a></div>' +
     '<tasks-list :tasks="tasks"/>' +
     '</div>' +
 
