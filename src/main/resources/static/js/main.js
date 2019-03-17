@@ -109,24 +109,42 @@ Vue.component('tasks-list', {
     }
 });
 
+
 var app = new Vue({
     el: '#app',
     template: '<div>' +
     '<div v-if="!profile">' +
-    '' +
     '<div>login <a href="/login">by Google</a></div>' +
     '</div>' +
     '<div  v-else>' +
+
     '<div>{{profile.name}}<a href="/logout">logout</a></div>' +
-    '<tasks-list :tasks="tasks"/>' +
+    '<input type="date" v-model="search_date">' +
+    '<input type="button" value="search" @click="search">' +
+    '<tasks-list v-if="knock" :tasks="dayTask"/>' +
+    '<tasks-list v-else :tasks="tasks"/>' +
     '</div>' +
 
     '</div>',
     data: {
         tasks: frontendData.tasks,
-        profile: frontendData.profile
+        profile: frontendData.profile,
+        dayTask:{},
+        search_date: '',
+        knock: false
     },
-    created: function () {
-        // taskApi.get().then(result => result.json().then(data => data.forEach(task => this.tasks.push(task))));
+    methods: {
+        search: function () {
+            this.knock=true
+            this.dayTask=(this.tasks.filter(task=>
+                task.date===this.search_date
+            ));
+            console.log(this.dayTask);
+        }
     }
 });
+
+//
+// created: function () {
+//     taskApi.get().then(result => result.json().then(data => data.forEach(task => this.tasks.push(task))));
+// }
